@@ -1,0 +1,4 @@
+a=10; b=20; sum=a+b;
+junk=500;
+final=sum/2;
+{final}

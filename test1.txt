@@ -1,0 +1,6 @@
+start=10;
+factor=5;
+dead=999;
+mid=start+factor;
+result=mid*2;
+{result}

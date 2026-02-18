@@ -1,0 +1,6 @@
+temp=-20;
+offset=+5;
+val=temp-offset;
+unused=-1;
+res=val*-2;
+{res}

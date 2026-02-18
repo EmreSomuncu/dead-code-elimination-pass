@@ -1,0 +1,6 @@
+count=0;
+step=1;
+useless=55;
+count=count+step;
+count=count*2;
+{count}

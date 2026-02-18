@@ -1,0 +1,333 @@
+Grammar
+
+    0 $accept: program $end
+
+    1 program: livestatement statements
+
+    2 livestatement: CURLYOB identifiers CURLYCP
+
+    3 identifiers: IDENTIFIER COMMA identifiers
+    4            | IDENTIFIER
+
+    5 statements: statement statements
+    6           | statement
+
+    7 statement: IDENTIFIER EQUAL expression SEMICOLON
+
+    8 expression: term operations term
+    9           | term
+
+   10 operations: ADD
+   11           | DIVISION
+   12           | MULTP
+   13           | SUBS
+   14           | POWER
+
+   15 term: NUMBER
+   16     | SUBS NUMBER
+   17     | ADD NUMBER
+   18     | IDENTIFIER
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    SEMICOLON <str> (258) 7
+    EQUAL <str> (259) 7
+    CURLYOB <str> (260) 2
+    CURLYCP <str> (261) 2
+    COMMA <str> (262) 3
+    MULTP <str> (263) 12
+    ADD <str> (264) 10 17
+    DIVISION <str> (265) 11
+    SUBS <str> (266) 13 16
+    POWER <str> (267) 14
+    NUMBER <str> (268) 15 16 17
+    IDENTIFIER <str> (269) 3 4 7 18
+
+
+Nonterminals, with rules where they appear
+
+    $accept (15)
+        on left: 0
+    program (16)
+        on left: 1
+        on right: 0
+    livestatement (17)
+        on left: 2
+        on right: 1
+    identifiers (18)
+        on left: 3 4
+        on right: 2 3
+    statements (19)
+        on left: 5 6
+        on right: 1 5
+    statement (20)
+        on left: 7
+        on right: 5 6
+    expression <str> (21)
+        on left: 8 9
+        on right: 7
+    operations <str> (22)
+        on left: 10 11 12 13 14
+        on right: 8
+    term <str> (23)
+        on left: 15 16 17 18
+        on right: 8 9
+
+
+State 0
+
+    0 $accept: • program $end
+
+    CURLYOB  shift, and go to state 1
+
+    program        go to state 2
+    livestatement  go to state 3
+
+
+State 1
+
+    2 livestatement: CURLYOB • identifiers CURLYCP
+
+    IDENTIFIER  shift, and go to state 4
+
+    identifiers  go to state 5
+
+
+State 2
+
+    0 $accept: program • $end
+
+    $end  shift, and go to state 6
+
+
+State 3
+
+    1 program: livestatement • statements
+
+    IDENTIFIER  shift, and go to state 7
+
+    statements  go to state 8
+    statement   go to state 9
+
+
+State 4
+
+    3 identifiers: IDENTIFIER • COMMA identifiers
+    4            | IDENTIFIER •
+
+    COMMA  shift, and go to state 10
+
+    $default  reduce using rule 4 (identifiers)
+
+
+State 5
+
+    2 livestatement: CURLYOB identifiers • CURLYCP
+
+    CURLYCP  shift, and go to state 11
+
+
+State 6
+
+    0 $accept: program $end •
+
+    $default  accept
+
+
+State 7
+
+    7 statement: IDENTIFIER • EQUAL expression SEMICOLON
+
+    EQUAL  shift, and go to state 12
+
+
+State 8
+
+    1 program: livestatement statements •
+
+    $default  reduce using rule 1 (program)
+
+
+State 9
+
+    5 statements: statement • statements
+    6           | statement •
+
+    IDENTIFIER  shift, and go to state 7
+
+    $default  reduce using rule 6 (statements)
+
+    statements  go to state 13
+    statement   go to state 9
+
+
+State 10
+
+    3 identifiers: IDENTIFIER COMMA • identifiers
+
+    IDENTIFIER  shift, and go to state 4
+
+    identifiers  go to state 14
+
+
+State 11
+
+    2 livestatement: CURLYOB identifiers CURLYCP •
+
+    $default  reduce using rule 2 (livestatement)
+
+
+State 12
+
+    7 statement: IDENTIFIER EQUAL • expression SEMICOLON
+
+    ADD         shift, and go to state 15
+    SUBS        shift, and go to state 16
+    NUMBER      shift, and go to state 17
+    IDENTIFIER  shift, and go to state 18
+
+    expression  go to state 19
+    term        go to state 20
+
+
+State 13
+
+    5 statements: statement statements •
+
+    $default  reduce using rule 5 (statements)
+
+
+State 14
+
+    3 identifiers: IDENTIFIER COMMA identifiers •
+
+    $default  reduce using rule 3 (identifiers)
+
+
+State 15
+
+   17 term: ADD • NUMBER
+
+    NUMBER  shift, and go to state 21
+
+
+State 16
+
+   16 term: SUBS • NUMBER
+
+    NUMBER  shift, and go to state 22
+
+
+State 17
+
+   15 term: NUMBER •
+
+    $default  reduce using rule 15 (term)
+
+
+State 18
+
+   18 term: IDENTIFIER •
+
+    $default  reduce using rule 18 (term)
+
+
+State 19
+
+    7 statement: IDENTIFIER EQUAL expression • SEMICOLON
+
+    SEMICOLON  shift, and go to state 23
+
+
+State 20
+
+    8 expression: term • operations term
+    9           | term •
+
+    MULTP     shift, and go to state 24
+    ADD       shift, and go to state 25
+    DIVISION  shift, and go to state 26
+    SUBS      shift, and go to state 27
+    POWER     shift, and go to state 28
+
+    $default  reduce using rule 9 (expression)
+
+    operations  go to state 29
+
+
+State 21
+
+   17 term: ADD NUMBER •
+
+    $default  reduce using rule 17 (term)
+
+
+State 22
+
+   16 term: SUBS NUMBER •
+
+    $default  reduce using rule 16 (term)
+
+
+State 23
+
+    7 statement: IDENTIFIER EQUAL expression SEMICOLON •
+
+    $default  reduce using rule 7 (statement)
+
+
+State 24
+
+   12 operations: MULTP •
+
+    $default  reduce using rule 12 (operations)
+
+
+State 25
+
+   10 operations: ADD •
+
+    $default  reduce using rule 10 (operations)
+
+
+State 26
+
+   11 operations: DIVISION •
+
+    $default  reduce using rule 11 (operations)
+
+
+State 27
+
+   13 operations: SUBS •
+
+    $default  reduce using rule 13 (operations)
+
+
+State 28
+
+   14 operations: POWER •
+
+    $default  reduce using rule 14 (operations)
+
+
+State 29
+
+    8 expression: term operations • term
+
+    ADD         shift, and go to state 15
+    SUBS        shift, and go to state 16
+    NUMBER      shift, and go to state 17
+    IDENTIFIER  shift, and go to state 18
+
+    term  go to state 30
+
+
+State 30
+
+    8 expression: term operations term •
+
+    $default  reduce using rule 8 (expression)
